@@ -1,0 +1,54 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+class StudentStack {
+private:
+    stack<string> s;
+
+public:
+    void push_item(const string& name) {
+        s.push(name);
+    }
+
+    void pop_item() {
+        if (!s.empty()) {
+            cout << "Popped: " << s.top() << endl;
+            s.pop();
+        } else {
+            cout << "Stack is empty. Nothing to pop." << endl;
+        }
+    }
+
+    void display_stack() {
+        stack<string> temp = s;
+        cout << "Top -> ";
+        while (!temp.empty()) {
+            cout << temp.top() << " -> ";
+            temp.pop();
+        }
+        cout << "NULL" << endl;
+    }
+};
+
+int main() {
+    StudentStack std_stack;
+
+    std_stack.push_item("Ali");
+    std_stack.push_item("Ahmad");
+    std_stack.push_item("Alice");
+
+    
+    std_stack.display_stack();
+
+    std_stack.pop_item(); 
+
+    std_stack.display_stack();
+    
+    std_stack.pop_item();
+    
+    std_stack.display_stack();
+
+    return 0;
+}
