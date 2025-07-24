@@ -1,0 +1,53 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+class Graph {
+private:
+    map<char, vector<char>> adj;
+
+    void dfsUtil(char current, set<char>& visited) {
+        visited.insert(current);
+        cout << current << " ";
+
+        for (char neighbor : adj[current]) {
+            if (visited.find(neighbor) == visited.end()) {
+                dfsUtil(neighbor, visited);
+            }
+        }
+    }
+
+public:
+    void addEdge(char u, char v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u); // Undirected graph
+    }
+
+    void dfs(char start) {
+        set<char> visited;
+        cout << "DFS Traversal starting from " << start << ": ";
+        dfsUtil(start, visited);
+        cout << endl;
+    }
+};
+
+int main() {
+    Graph g;
+
+    // Add edges as per the image
+    g.addEdge('A', 'B');
+    g.addEdge('B', 'E');
+    g.addEdge('A', 'D');
+    g.addEdge('A', 'C');
+    g.addEdge('C', 'D');
+    g.addEdge('D', 'E');
+    g.addEdge('B', 'D');
+
+    // Perform DFS from vertex 'A'
+    g.dfs('A');
+
+    return 0;
+}
