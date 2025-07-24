@@ -1,0 +1,61 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <queue>
+#include <set>
+
+using namespace std;
+
+class Graph {
+private:
+    map<char, vector<char>> adj;
+
+public:
+    void addEdge(char u, char v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u); // Since it's an undirected graph
+    }
+
+    void bfs(char start) {
+        set<char> visited;
+        queue<char> q;
+
+        visited.insert(start);
+        q.push(start);
+
+        cout << "BFS Traversal starting from " << start << ": ";
+
+        while (!q.empty()) {
+            char current = q.front();
+            q.pop();
+            cout << current << " ";
+
+            for (char neighbor : adj[current]) {
+                if (visited.find(neighbor) == visited.end()) {
+                    visited.insert(neighbor);
+                    q.push(neighbor);
+                }
+            }
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Graph g;
+
+    // Add edges as per the image
+    g.addEdge('A', 'B');
+    g.addEdge('B', 'E');
+    g.addEdge('A', 'D');
+    g.addEdge('A', 'C');
+    g.addEdge('C', 'D');
+    g.addEdge('D', 'E');
+    g.addEdge('B', 'D');
+
+    // Perform BFS from vertex 'A'
+    g.bfs('A');
+    g.bfs('B');
+
+    return 0;
+}
